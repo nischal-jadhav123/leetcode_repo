@@ -15,28 +15,26 @@
  */
 class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        Deque<List<Integer>> st = new ArrayDeque<>();
-        if(root == null) return res;
-        Queue<TreeNode> q = new LinkedList<>();
-        List<Integer> curr = new ArrayList<>();
-        q.offer(root);
-        q.offer(null);
-        while(!q.isEmpty()){
-            TreeNode temp = q.poll();
-            if(temp != null){
-                curr.add(temp.val);
-                if(temp.left != null) q.offer(temp.left);
-                if(temp.right != null) q.offer(temp.right);
-            }else{
-            List<Integer> c_curr = new ArrayList<>(curr);
-                st.push(c_curr);
-                curr.clear();
-                if(!q.isEmpty()) q.offer(null);
-            }
+        Queue<TreeNode> nodeQueue = new LinkedList<>();
+        Stack<List<Integer>> levels = new Stack<>();
+        if(root != null) {
+            nodeQueue.offer(root);
         }
-        while(!st.isEmpty()){
-            res.add(st.pop());
+        while(!nodeQueue.isEmpty()) {
+            int qSize = nodeQueue.size();
+            List<Integer> level = new ArrayList<>();
+            for (int i = 0; i < qSize; i++) {
+                TreeNode curr = nodeQueue.poll();
+                level.add(curr.val);
+                if(curr.left != null) nodeQueue.offer(curr.left);
+                if(curr.right != null) nodeQueue.offer(curr.right);
+            }
+            levels.push(level);
+        }
+
+        List<List<Integer>> res = new ArrayList<>();
+        while(!levels.isEmpty()) {
+            res.add(levels.pop());
         }
         return res;
     }
