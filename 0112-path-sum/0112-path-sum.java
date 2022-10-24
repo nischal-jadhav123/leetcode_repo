@@ -16,7 +16,26 @@
 class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
         if(root == null) return false;
-        if(root.left == null && root.right == null && sum == root.val) return true;
-        return hasPathSum(root.left,sum-root.val) || hasPathSum(root.right,sum-root.val);
+        Deque<TreeNode> st = new ArrayDeque<>();
+        Deque<Integer> diff = new ArrayDeque<>();
+        st.push(root);
+        diff.push(root.val);
+        while(!st.isEmpty()){
+            TreeNode curr = st.pop();
+            int val = diff.pop();
+            if(curr.left == null && curr.right == null && sum == val ) return true;
+            else{
+               if(curr.left != null){
+                st.push(curr.left);
+                diff.push(curr.left.val+val);
+            }
+              if(curr.right != null){
+                st.push(curr.right);
+                diff.push(curr.right.val+val); 
+            } 
+            }
+            
+        }
+        return false;
     }
 }
