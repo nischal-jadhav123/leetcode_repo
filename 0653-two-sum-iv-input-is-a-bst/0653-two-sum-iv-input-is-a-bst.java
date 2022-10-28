@@ -14,20 +14,11 @@
  * }
  */
 class Solution {
+    Set<Integer> s = new HashSet<>();
     public boolean findTarget(TreeNode root, int k) {
-        Map<Integer,Integer> map= new HashMap<>();
-        return helper(root,k,map);
-    }
-    public boolean helper(TreeNode root, int k, Map<Integer,Integer> map){
         if(root == null) return false;
-        boolean left = false;
-        boolean right = false;
-        if(map.containsKey(root.val)) return true;
-        else{
-            map.put(k - root.val,root.val);
-            left = helper(root.left,k,map);
-            right =  helper(root.right,k,map);
-        }
-        return left || right;
+        if(s.contains(k - root.val)) return true;
+        s.add(root.val);
+        return findTarget(root.left,k) || findTarget(root.right,k);
     }
 }
