@@ -3,7 +3,7 @@ class Solution {
         int max = 0;
         for(String s : sentences){
             String[] temp = s.split(" ");
-            max = temp.length > max ? temp.length : max;
+            max = Math.max(max,temp.length);
         }
         return max;
     }
