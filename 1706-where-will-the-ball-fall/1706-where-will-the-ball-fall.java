@@ -8,7 +8,6 @@ class Solution {
     }
 
     public int findBallDropColumn(int row, int col, int[][] grid) {
-        // base case; ball reached the last row
         if (row == grid.length)
             return col;
         int nextColumn = col + grid[row][col];
