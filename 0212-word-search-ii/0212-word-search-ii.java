@@ -26,11 +26,11 @@ class Solution {
     public List<String> findWords(char[][] board, String[] words) {
         List<String> list=new ArrayList<>();
         for(int k=0;k<words.length;k++){
-            insert(words[k]); //saare string ka trie bana rhe
+            insert(words[k]); 
         }
           for(int i=0;i<board.length;i++){
               for(int j=0;j<board[0].length;j++){
-                 search(board,i,j,list,root); //iss wale idx pe jo character h usse koi word bn raha kya ye check kr rhe
+                 search(board,i,j,list,root); 
               }
           }
         
@@ -43,19 +43,19 @@ class Solution {
         }
          char c1=board[i][j];
          int idx=c1-'a';
-         if(c1=='$' || root.children[idx]==null){ //agar phle visit  kiye h ya isse word nahi bnega to return 
+         if(c1=='$' || root.children[idx]==null){ 
              return;
          }
         root=root.children[idx];
         if(root.eow==true){
              list.add(root.word);
-            root.eow=false;  //taki ek hi baar add ho yaha list.contains bhi if me laga skte hai iske jagah
+            root.eow=false;
         }
         board[i][j]='$';
-        search(board,i+1,j,list,root); //niche
-        search(board,i,j+1,list,root); //right
-        search(board,i-1,j,list,root); //uppar
-        search(board,i,j-1,list,root); //left
+        search(board,i+1,j,list,root);
+        search(board,i,j+1,list,root);
+        search(board,i-1,j,list,root);
+        search(board,i,j-1,list,root);
         board[i][j]=c1;
     }
 }
